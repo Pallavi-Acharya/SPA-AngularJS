@@ -1,0 +1,212 @@
+<!--html to hold Patient add ,Visit details -->
+<!--Panel to hold Form for adding Patient record-->
+<div class="panel panel-primary" id="individualPatientList" style="display:none" ng-controller="HomeController">
+      <div class="panel-heading">Add/Edit Patient </div>
+      <div class="panel-body ">
+          <!--Form Starts here-->
+          <form name="myForm">
+              <!--Div to hold input for Patient Name-->
+              <div class="patientData col-lg-4">
+                  <span>Name</span>
+                  <div style="display:flex;flex-direction:column;align-items:center;min-height:60px">
+                      <input type="text" ng-model="patientName" required minlength="2" name="pname">
+                      <span ng-show="myForm.pname.$error.minlength" style="color:red">Requires Minimun 2 characters</span>
+                  </div>
+              </div>
+              <!--Div to hold input for Patient Age-->
+              <div class="patientData col-lg-4">
+                  <span>Age</span>
+                  <div style="display:flex;flex-direction:column;align-items:center;min-height:60px">
+                      <input type="number" ng-model="patientAge" required>
+                  </div>
+              </div>
+              <!--Div to hold input for Patient Date of Birth-->
+              <div class="patientData col-lg-4">
+                  <span>DOB</span>
+                  <div style="display:flex;flex-direction:column;align-items:center;min-height:60px">
+                      <input type="date" required name="dob" type="date" ng-model="patientDOB" placeholder="yyyy-MM-dd" max="{{today | date:'yyyy-MM-dd'}}" value="{{patientDOB | date:'yyyy-MM-dd'}}">
+                      <span ng-show="myForm.dob.$error.max">Not a valid number!</span>
+                  </div>
+              </div>
+              <!--Div to hold input for Patient Phone-->
+              <div class="patientData col-lg-4">
+                  <span>Phone</span>
+                  <div style="display:flex;flex-direction:column;align-items:center;min-height:60px">
+                      <input type="number" ng-model="patientPhone" required ng-pattern="/(7|8|9)\d{9}/" name="phNum">
+                      <span ng-show="myForm.phNum.$error.pattern">Not a valid number!</span>
+                  </div>
+              </div>
+              <!--Div to hold input for Email id of Patient-->
+              <div class="patientData col-lg-4"> <span>Email</span>
+                  <div style="display:flex;flex-direction:column;align-items:center;min-height:60px">
+                      <input type="email" ng-model="patientEmail" name="email">
+                      <span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+                    <span ng-show="myForm.email.$error.email">Invalid email address.</span></span>
+                  </div>
+              </div>
+              <!--Div to hold input for Address of Patient-->
+              <div class="patientData col-lg-4">
+                  <span>Address</span>
+                  <div style="display:flex;flex-direction:column;align-items:center;min-height:60px">
+                      <input type="text" ng-model="patientAddress">
+                  </div>
+              </div>
+              <!--Div to hold input for Height of Patient-->
+              <div class="patientH col-lg-4">
+                  <span>Height</span>
+                  <div>
+                      <input type="text" size="4" pattern="[a-zA-Z0-9\s.]+" style="height:20px" ng-model="heightValue" value="{{heightValue}}">
+                      <select ng-model="patientHeight" ng-options="x for x in heightOptions" value="individualData.height">
+                      </select>
+                  </div>
+              </div>
+              <!--Div to hold input for Weight of Patient-->
+              <div class="patientH col-lg-4">
+                  <span>Weight</span>
+                  <div>
+                      <input type="text" size="4" step="any" style="height:20px" ng-model="weightValue">
+                      <select ng-model="patientWeight" ng-options="x for x in weightOptions" value="individualData.weight">
+                      </select>
+                  </div>
+              </div>
+              <!--Div to hold input for Close and Send Button-->
+              <div class="col-lg-12 buttonHolder">
+                  <button class="btn btn-danger" onClick="document.getElementById('individualPatientList').style.display='none';location.reload()">Close</button>
+                  <input class="btn btn-success" type="submit" id="submitPatient" onClick="document.getElementById('individualPatientList').style.display='none';location.reload()" ng-click="saveData()" />
+              </div>
+          </form>
+      </div>
+  </div>
+  <!-- Div to hold patient details-->
+  <div class="panel panel-primary" id="patientDet" style="display:none" ng-controller="HomeController">
+      <div class="panel-heading"> Patient Details <span onClick="document.getElementById('patientDet').style.display='none'; window.reload()" style="cursor:pointer">Close</span></div>
+      <div class="panel-body">
+          <!--Looping through record that hold selected patient-->
+          <div ng-repeat="(key,value) in clickedData " class="col-lg-4">
+              <div class="displayData col-lg-12">
+                  <p class="col-lg-6"><b>{{key}}</b></p>
+                  <pclass="col-lg-6">{{value }}</p>
+              </div>
+          </div>
+      </div>
+      <!--Div to show visit details of patient-->
+      <div class="panel panel-primary" id="visitDetails">
+          <div class="panel-heading"> Visit Details </div>
+          <button ng-click="AddVisit(clickedData.id)" class="btn btn-info" style="margin-top:10px">Add Visit <i class="fa fa-pencil" aria-hidden="true"></i></button>
+          <div class="panel-body" style="display:flex;justify-content: center">
+              <table class="visitTable " cellspacing="10">
+                  <thead>
+                      <td>Visitor ID</td>
+                      <td>Doctor Name</td>
+                      <td>Last Visit</td>
+                      <td>Next Visit</td>
+                      <td>Medicines</td>
+                      <td>Comments</td>
+                      <td>Others</td>
+                      <td>Edit</td>
+                  </thead>
+                  <!--Looping through the record to display visit details -->
+                  <tr ng-repeat="data in  visitDetails ">
+                      <td>{{data.id}}</td>
+                      <td>{{data.docName}}</td>
+                      <td>{{data.lastVisit | date:'yyyy-MM-dd'}}</td>
+                      <td>{{data.nextVisit |date:'yyyy-MM-dd'}}</td>
+                      <td>{{data.medicines}}</td>
+                      <td>{{data.comment}}</td>
+                      <td>{{data.others}}</td>
+                      <td ng-click="EditVisit(data)" style="cursor:pointer"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
+                  </tr>
+              </table>
+          </div>
+          <!-- Div hold pagination-->
+          <div style="display:flex;justify-content: center;cursor:pointer">
+              <button class="btn btn-info" ng-disabled="currentVisitPage == 0" ng-click="currentVisitPage=currentVisitPage-1">
+                  Previous
+              </button>
+              {{currentVisitPage+1}}/{{numberOfVisitPages()}}
+              <button class="btn btn-info" ng-disabled="currentVisitPage >=3/pageSize - 1" ng-click="currentVisitPage=currentVisitPage+1">
+                  Next
+              </button>
+          </div>
+      </div>
+      <!--Div to hold Edit Visit details of patient-->
+      <div id="addEditVisit" style="display:none">
+          <div>
+              <form>
+                  <!--Div holds Last Visit detail-->
+                  <div class="patientData col-lg-4">
+                      <span>Last Visit</span>
+                      <input ng-model="docVisit.lastVisit" id="txtDate" type="date" max="{{today | date:'yyyy-MM-dd'}}" value="{{docVisit.lastVisit| date:'yyyy-MM-dd'}}">
+                      </input>
+                  </div>
+                  <!--Div holds Next Visit Data-->
+                  <div class="patientData col-lg-4"><span>Next Visit</span>
+                      <input ng-model="docVisit.nextVisit" type="date" min="{{today | date:'yyyy-MM-dd'}}" value="{{docVisit.nextVisit | date:'yyyy-MM-dd'}}"></input>
+                  </div>
+                  <!--Div holds Name of the Doctor-->
+                  <div class="patientData col-lg-4"><span>Name</span>
+                      <input ng-model="docVisit.docName" minlength="2"></input>
+                  </div>
+                  <!--Div holds Medicines that are prescribed-->
+                  <div class="patientData col-lg-4"><span>Medicines</span>
+                      <input ng-model="docVisit.medicines"></input>
+                  </div>
+                  <!--Div holds Comment that are given by Doctor-->
+                  <div class="patientData col-lg-4"><span>Comment</span>
+                      <input ng-model="docVisit.comment"></input>
+                  </div>
+                  <!--Div holds other details-->
+                  <div class="patientData col-lg-4"><span>Others</span>
+                      <input ng-model="docVisit.others"></input>
+                  </div>
+                  <!--Div holds button for close and save-->
+                  <div class="col-lg-12 buttonHolder">
+                      <button ng-click="saveDocVisit()" class="btn btn-success" onClick="document.getElementById('addEditVisit').style.display='none';location.reload()">Save</button>
+                      <button onClick="document.getElementById('addEditVisit').style.display='none'" class="btn btn-danger">Close</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  
+      <!--Div hold form to add new Visit-->
+      <div id="addDocVisit" style="display:none">
+          <div>
+              <form>
+                  <!--Div holds Last Visit detail-->
+                  <div class="patientData col-lg-4">
+                      <span>Last Visit</span>
+                      <input ng-model="docVisit.lastVisit" id="txtDate" type="date" placeholder="yyyy-MM-dd" min="2013-01-01" max="{{today | date:'yyyy-MM-dd'}}">
+                      </input>
+                  </div>
+                  <!--Div holds Next Visit detail-->
+                  <div class="patientData col-lg-4"><span>Next Visit</span>
+                      <input ng-model="docVisit.nextVisit" placeholder="yyyy-MM-dd" type="date" min="{{today | date:'yyyy-MM-dd'}}"></input>
+                  </div>
+                  <!--Div holds Name of the Doctor-->
+                  <div class="patientData col-lg-4"><span>Name</span>
+                      <input ng-model="docVisit.docName" minlength="2"></input>
+                  </div>
+                  <!--Div holds Medicines that are prescribed-->
+                  <div class="patientData col-lg-4"><span>Medicines</span>
+                      <input ng-model="docVisit.medicines"></input>
+                  </div>
+                  <!--Div holds Comment that are given by Doctor-->
+                  <div class="patientData col-lg-4"><span>Comment</span>
+                      <input ng-model="docVisit.comment"></input>
+                  </div>
+                  <!--Div holds other details-->
+                  <div class="patientData col-lg-4"><span>Others</span>
+                      <input ng-model="docVisit.others"></input>
+                  </div>
+                  <!--Div holds button for close and save-->
+                  <div class="col-lg-12 buttonHolder">
+                      <button class="btn btn-success" ng-click="saveNewVisit()" onClick="document.getElementById('addDocVisit').style.display='none';location.reload()">Save</button>
+                      <button onClick="document.getElementById('addDocVisit').style.display='none'" class="btn btn-danger">Close</button>
+                  </div>
+              </form>
+  
+          </div>
+      </div>
+  </div>
+  
+  <!--End of Patient Data-->

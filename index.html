@@ -1,0 +1,33 @@
+<!--Start of html page to display Patient and thier Visit Details-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--Necessary scripts are loaded-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="//unpkg.com/@uirouter/angularjs/release/angular-ui-router.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="app.css">
+  </head>
+  <!--Begining of angular APP-->
+  <body ng-app="patientApp">
+    <div class="container mainBody">
+      <section>
+        <!-- This renders various html page-->
+        <div class="container">
+          <ui-view></ui-view>
+        </div>
+      </section>
+    </div>
+    <!--AngualrJS File is loaded here-->
+    <script src="home.js"></script>     
+  </body>
+</html>
+<!--End of Index HTML page -->

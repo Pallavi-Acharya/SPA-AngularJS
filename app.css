@@ -1,0 +1,105 @@
+.topBar
+{
+    border:2px solid black;
+    height:80px;
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.searchBar
+{
+    position: relative;
+    display:flex;   
+    align-items: center; 
+    width:300px;
+    height:45px;
+    border-radius: 10px;
+    border:1px solid #C8C8C8;
+}
+.searchText
+{
+    border:none;
+    width:300px;
+    height:25px;
+    background-size: 20px 30px;
+    float:left;
+}
+.searchImg
+{
+    position: absolute;
+}
+.patientTable
+{
+           display: table-cell;
+        padding: 10px;
+        text-align: justify;
+              
+}
+.login,.patientList
+{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.patientDetailsTopBar,.buttonHolder
+{
+    display:flex;
+    justify-content: space-between;
+}
+thead{
+    color:white;
+    background-color:black;
+}
+table,td {
+     padding: 25px;
+  }
+  tr:nth-child(even)
+  {
+      background-color: darkgrey;
+  }
+  .patientData
+  {
+      display:flex;
+      justify-content: space-evenly;
+      padding:15px;
+  }
+  .patientH
+  {
+    display:flex;
+    justify-content: space-evenly;
+    padding:15px;
+   /* padding:10px 145px 10px 10px; */
+  }
+  .displayData
+  {
+      display:inline-block;
+      margin:5px;
+
+  }
+ .visitDetails{
+     border:none;
+     display:flex;
+     justify-content:center;
+     flex-direction: column;
+ }
+ .panel {
+    margin-bottom: 20px;
+    background-color: none;
+    border:none;
+    border-radius: none;
+    -webkit-box-shadow:none;
+    box-shadow:none;
+ }
+ .addEditPatient
+ {
+     border:1px solid gray;
+ }
+ .panel-heading
+ {
+     display:flex;
+     justify-content: space-between;    
+ }
+ #patientDet{
+     margin:15px;
+ }

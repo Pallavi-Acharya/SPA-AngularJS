@@ -1,0 +1,69 @@
+<!--Start of HOME html Page, that holds Patient data-->
+<div class="panel panel-primary" ng-controller="HomeController">
+        <div class="panel-heading">Patient Management</div>
+        <div class="panel-body">
+          <!--Top bar holding Add patient and search bar-->
+          <div class="patientDetailsTopBar">
+            <div class="addPatient col-lg-6">
+              <button class="btn btn-info" ng-click="sendData()"><a ui-sref=".add">Add Patient <i class="fa fa-pencil"
+                aria-hidden="true"></i></a></button>
+            </div>
+            <div class="searchBar col-lg-6">
+              <img src="https://img.icons8.com/material/50/000000/search.png"
+                style="float:left;width:30px;height:30px">
+              <input type="text" class="searchText" ng-model="searchText" placeholder="Search" id="search">
+            </div>
+          </div>
+          <!--Div containing patient data-->
+          <div class="patientList ">
+            <table class="patientTable " cellspacing="10" id="patientDataTable">
+              <thead>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Age</td>
+                <td>D.O.B</td>
+                <td>Height</td>
+                <td>Weight</td>
+                <td>Phone</td>
+                <td>Email</td>
+                <td>Address</td>
+                <td>Edit</td>
+                <td>Delete</td>
+              </thead>
+              <!--Looping through the data to display patient details-->
+              <tr style="cursor:pointer"
+                ng-repeat="data in  responseData | filter:searchText | startFrom:currentPage*pageSize | limitTo:pageSize">
+                <td>{{data.id}}</td>
+                <td ng-click="showPatientData(data)">{{data.name}}</td>
+                <td>{{data.age}}</td>
+                <td type="date">{{data.DOB | date:'yyyy-MM-dd'}}</td>
+                <td>{{data.heightValue}}</td>
+                <td>{{data.weightValue}}</td>
+                <td>{{data.phone}}</td>
+                <td>{{data.email}}</td>
+                <td>{{data.address}}</td>
+                <td ng-click="editDetails(data)"><a ui-sref=".edit"><i class="fa fa-pencil-square-o"
+                  aria-hidden="true"></i></a></td>
+                <td ng-click="deletePatient(data)" onClick="alert('Delete Successful');location.reload()"><i
+                  class="fa fa-window-close" style="color:red" aria-hidden="true"></i></td>
+              </tr>
+            </table>
+            <!--Div holds Pagination-->
+            <div style="display:flex;justify-content: center;">
+              <button class="btn btn-info" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+              Previous
+              </button>
+              {{currentPage+1}}/{{numberOfPages()}}
+              <button class="btn btn-info" ng-disabled="currentPage >= responseData.length/pageSize - 1"
+                ng-click="currentPage=currentPage+1">
+              Next
+              </button>
+            </div>
+          </div>
+          <div>
+            <!-- View that renders page based on state-->
+            <div ui-view></div>
+          </div>
+        </div>
+      </div>
+      <!--End of HOME html Page-->
